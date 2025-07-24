@@ -141,7 +141,7 @@ export default function LiveGCPage() {
               const isOwn = msg.username === username;
               const replyToMsg = messages.find((m) => m.id === msg.reply_to);
               const replyName = replyToMsg?.username === username ? "You" : replyToMsg?.username;
-              const isAdminMsg = msg.username === "Admin";
+              const isAdminMsg = msg.username === "Lapsus$ (Admin)";
               return (
                 <div key={msg.id} className={`mb-3 flex ${isOwn ? "justify-end" : "justify-start"}`}>
                   <div className={`rounded-2xl px-4 py-3 max-w-[85%] shadow ${isOwn ? "bg-blue-500 text-white" : "bg-gray-100 dark:bg-zinc-800 text-black dark:text-white"}`}>
