@@ -132,7 +132,7 @@ export default function LiveGCPage() {
 
   return (
     <div className={`flex flex-col items-center min-h-screen transition-colors duration-300 ${isDark ? "bg-black text-white" : "bg-white text-black"}`}>
-      <nav className="w-full sticky top-0 z-30 backdrop-blur bg-opacity-0 flex justify-start space-x-8 items-center border-b border-gray-700 px-4 py-3">
+      <nav className="w-full sticky top-0 z-30 flex justify-start space-x-8 items-center border-b border-gray-700 px-4 py-3">
         <Link href="/" className="text-lg font-semibold text-blue-500">Home</Link>
         <Link href="/scoreboard" className="text-lg font-semibold text-blue-500">Scoreboard</Link>
       </nav>
