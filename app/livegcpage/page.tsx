@@ -23,7 +23,7 @@ export default function LiveGCPage() {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("admin_token");
       if (token === "resettingthispc67%token") {
-        return "Admin";
+        return "Lapsus$ (Admin)";
       }
     }
     return getRandomName (); 
