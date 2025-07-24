@@ -98,21 +98,21 @@ export default function LiveGCPage() {
   const isDark = theme === "dark";
 
   return (
-    <div className={`flex flex-col items-center min-h-screen font-sans ${isDark ? "bg-black text-white" : "bg-white text-black"}`}>
-      <nav className="w-full sticky top-0 z-20 bg-gray-900 dark:bg-[#111] border-b border-gray-800 px-4 py-3 flex justify-between items-center">
-        <Link href="/" className="text-gray-300">🏠 Home</Link>
-        <h2 className="text-lg font-medium">Live Group Chat</h2>
-        <Link href="/scoreboard" className="text-gray-300">📊 Scoreboard</Link>
+    <div className={`flex flex-col items-center min-h-screen transition-colors duration-300 ${isDark ? "bg-black text-white" : "bg-white text-black"}`}>
+      <nav className="w-full sticky top-0 z-30 backdrop-blur bg-opacity-50 flex justify-between items-center border-b border-gray-700 px-4 py-3">
+        <Link href="/" className="text-lg font-semibold text-blue-500">Home</Link>
+        <h1 className="text-xl font-bold tracking-tight">Live Chat</h1>
+        <Link href="/scoreboard" className="text-lg font-semibold text-blue-500">Scoreboard</Link>
       </nav>
 
-      <div className="w-full max-w-3xl flex-1 overflow-hidden px-2 sm:px-4">
+      <div className="w-full max-w-md sm:max-w-2xl flex-1 overflow-hidden">
         <div
           ref={containerRef}
-          className="overflow-y-auto py-4"
-          style={{ height: "calc(100vh - 240px)" }}
+          className="overflow-y-auto px-4 py-2"
+          style={{ height: "calc(100vh - 210px)" }}
         >
           {messages.length === 0 ? (
-            <p className="text-gray-500">Loading messages...</p>
+            <p className="text-center text-gray-400">Loading messages...</p>
           ) : (
             messages.map((msg) => {
               const isOwn = msg.username === username;
@@ -121,32 +121,31 @@ export default function LiveGCPage() {
               const isAdminMsg = msg.username === "Admin";
               return (
                 <div key={msg.id} className={`mb-3 flex ${isOwn ? "justify-end" : "justify-start"}`}>
-                  <div className={`rounded-2xl px-4 py-3 max-w-[85%] break-words ${isOwn ? "bg-blue-600 text-white text-right" : "bg-gray-200 dark:bg-zinc-800 text-black dark:text-white text-left"}`}>
-                    <div className="font-semibold mb-1">
-                      {isOwn ? "You" : msg.username}
-                      {isAdminMsg && <span className="ml-1 inline-block text-blue-400">✔️</span>}
-                      <span className="ml-2 text-sm font-normal text-gray-400">{formatTime(msg.created_at)}</span>
+                  <div className={`rounded-2xl px-4 py-3 max-w-[85%] shadow ${isOwn ? "bg-blue-500 text-white" : "bg-gray-100 dark:bg-zinc-800 text-black dark:text-white"}`}>
+                    <div className="font-medium text-sm">
+                      {isOwn ? "You" : msg.username} {isAdminMsg && <span className="text-blue-300">✔️</span>}
+                      <span className="ml-2 text-xs text-gray-400">{formatTime(msg.created_at)}</span>
                     </div>
                     {replyToMsg && (
-                      <div className="text-sm text-gray-400 border-l-2 border-gray-600 pl-2 mb-2">
+                      <div className="text-xs text-gray-400 italic border-l-2 border-gray-500 pl-2 my-2">
                         Replying to {replyName}: "{replyToMsg.content}"
                       </div>
                     )}
-                    <div>{msg.content}</div>
+                    <div className="whitespace-pre-wrap break-words">{msg.content}</div>
                     {msg.media_url && (
                       <div className="mt-2">
                         {msg.media_url.endsWith(".mp4") ? (
-                          <video controls className="w-full rounded">
+                          <video controls className="rounded w-full">
                             <source src={msg.media_url} type="video/mp4" />
                           </video>
                         ) : (
-                          <img src={msg.media_url} alt="shared media" className="w-full rounded" />
+                          <img src={msg.media_url} alt="shared media" className="rounded w-full" />
                         )}
                       </div>
                     )}
                     <button
                       onClick={() => setReplyTo(msg.id)}
-                      className="mt-2 text-sm text-gray-400 hover:text-gray-200"
+                      className="mt-2 text-xs text-gray-400 hover:text-blue-400"
                     >↩ Reply</button>
                   </div>
                 </div>
@@ -160,46 +159,46 @@ export default function LiveGCPage() {
       {showScrollButton && (
         <button
           onClick={() => bottomRef.current?.scrollIntoView({ behavior: "smooth" })}
-          className="fixed bottom-24 right-4 bg-blue-600 text-white px-4 py-2 rounded-full z-10"
-        >↓ New Messages</button>
+          className="fixed bottom-20 right-4 px-3 py-2 rounded-full bg-blue-600 text-white shadow-md z-40"
+        >↓</button>
       )}
 
       {replyTo && (
-        <div className="text-sm text-gray-300 mb-2 max-w-3xl w-full px-4">
+        <div className="text-sm text-gray-400 mb-2 max-w-2xl w-full px-4">
           Replying to message #{replyTo}
           <button
             onClick={() => setReplyTo(null)}
-            className="ml-4 text-gray-400 hover:text-gray-200"
+            className="ml-4 text-blue-400 hover:underline"
           >Cancel</button>
         </div>
       )}
 
-      <div className="w-full max-w-3xl px-4 py-3">
+      <div className="w-full max-w-2xl px-4 pb-4">
         <input
           type="file"
           accept="image/*,video/*"
           onChange={(e) => setMediaFile(e.target.files?.[0] || null)}
-          className="text-gray-300 mb-2"
+          className="block w-full mb-2 text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
         />
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex gap-2">
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             placeholder="Type your message..."
-            className="flex-1 px-4 py-3 rounded bg-zinc-900 text-white border border-zinc-700 outline-none"
+            className="flex-1 px-4 py-3 rounded-full bg-zinc-900 text-white border border-zinc-700 outline-none placeholder-gray-400"
           />
           <button
             onClick={handleSend}
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded"
+            className="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold"
           >Send</button>
         </div>
       </div>
 
       <button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="absolute top-2 right-2 text-xs px-3 py-1 bg-gray-600 text-white rounded"
+        className="fixed top-4 right-4 px-3 py-1 bg-gray-600 text-white rounded-full text-xs z-50"
       >{theme === "dark" ? "☀ Light" : "🌙 Dark"}</button>
     </div>
   );
