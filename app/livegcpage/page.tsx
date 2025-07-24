@@ -19,7 +19,16 @@ const getRandomName = () =>
   randomNames[Math.floor(Math.random() * randomNames.length)] + Math.floor(Math.random() * 1000);
 
 export default function LiveGCPage() {
-  const [username, setUsername] = useState(getRandomName());
+  const [username, setUsername] = useState(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("admin_token");
+      if (token === "resettingthispc67%token") {
+        return "Admin";
+      }
+    }
+    return getRandomName (); 
+
+  });
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [mediaFile, setMediaFile] = useState<File | null>(null);
