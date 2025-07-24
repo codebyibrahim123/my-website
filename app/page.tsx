@@ -173,7 +173,7 @@ export default function HomePage() {
           <div></div>
           <div style={{ display: "flex", gap: "2rem" }}>
             <Link href="/livegcpage" style={{ color: darkMode ? "#ccc" : "#333", textDecoration: "none" }}>Live Chat</Link>
-            <Link href="/scoreboard" style={{ color: darkMode ? "#ccc" : "#333", textDecoration: "none" }}>Live Rating Scoreboard</Link>
+            <Link href="/scoreboard" style={{ color: darkMode ? "#ccc" : "#333", textDecoration: "none" }}>Scoreboard</Link>
           </div>
           <button onClick={() => setDarkMode(!darkMode)} style={{ background: "none", border: "1px solid #444", padding: "0.5rem 1rem", borderRadius: "8px", cursor: "pointer", color: darkMode ? "white" : "black", display: "flex", alignItems: "center", gap: "0.5rem" }}>
             {darkMode ? <Moon /> : <Sun />} {darkMode ? "Dark Mode" : "Light Mode"}

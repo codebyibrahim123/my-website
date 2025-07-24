@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { supabase } from "@/utils/supabaseClient";
@@ -18,17 +17,24 @@ const randomNames = ["AnonymousLion", "ShadowWolf", "GhostFalcon", "SilentTiger"
 const getRandomName = () =>
   randomNames[Math.floor(Math.random() * randomNames.length)] + Math.floor(Math.random() * 1000);
 
-export default function LiveGCPage() {
-  const [username, setUsername] = useState(() => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("admin_token");
-      if (token === "resettingthispc67%token") {
-        return "Lapsus$ (Admin)";
-      }
+const getOrCreateUsername = () => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("admin_token");
+    if (token === "resettingthispc67%token") {
+      return "Lapsus$ (Admin)";
     }
-    return getRandomName (); 
+    let username = localStorage.getItem("username");
+    if (!username) {
+      username = getRandomName();
+      localStorage.setItem("username", username);
+    }
+    return username;
+  }
+  return getRandomName();
+};
 
-  });
+export default function LiveGCPage() {
+  const [username, setUsername] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [mediaFile, setMediaFile] = useState<File | null>(null);
@@ -37,6 +43,10 @@ export default function LiveGCPage() {
   const [theme, setTheme] = useState("dark");
   const containerRef = useRef<HTMLDivElement | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setUsername(getOrCreateUsername());
+  }, []);
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -51,13 +61,13 @@ export default function LiveGCPage() {
         .single();
 
       if (admin && admin.role === "admin") {
-        setUsername("Admin");
+        setUsername("Lapsus$ (Admin)");
       }
     };
 
     checkAdmin();
   }, []);
-// @ts-ignore
+  // @ts-ignore
   useEffect(() => {
     fetchMessages();
     const channel = supabase
@@ -122,9 +132,8 @@ export default function LiveGCPage() {
 
   return (
     <div className={`flex flex-col items-center min-h-screen transition-colors duration-300 ${isDark ? "bg-black text-white" : "bg-white text-black"}`}>
-      <nav className="w-full sticky top-0 z-30 backdrop-blur bg-opacity-50 flex justify-between items-center border-b border-gray-700 px-4 py-3">
+      <nav className="w-full sticky top-0 z-30 backdrop-blur bg-opacity-50 flex justify-center space-x-10 items-center border-b border-gray-700 px-4 py-3">
         <Link href="/" className="text-lg font-semibold text-blue-500">Home</Link>
-        <h1 className="text-xl font-bold tracking-tight">Live Chat</h1>
         <Link href="/scoreboard" className="text-lg font-semibold text-blue-500">Scoreboard</Link>
       </nav>
 
@@ -221,8 +230,9 @@ export default function LiveGCPage() {
 
       <button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="fixed top-4 right-4 px-3 py-1 bg-gray-600 text-white rounded-full text-xs z-50"
+        className="fixed top-3 right-3 px-4 py-1 bg-gray-600 text-white rounded-full text-xs z-50"
       >{theme === "dark" ? "☀ Light" : "🌙 Dark"}</button>
     </div>
   );
 }
+
