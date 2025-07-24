@@ -30,27 +30,25 @@ export default function LiveGCPage() {
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-  const checkAdmin = async () => {
-    if (typeof window === "undefined") return;
+    const checkAdmin = async () => {
+      if (typeof window === "undefined") return;
+      const token = localStorage.getItem("admin_token");
+      if (!token) return;
 
-    const token = localStorage.getItem("admin_token");
-    if (!token) return;
+      const { data: admin, error } = await supabase
+        .from("admin_tokens")
+        .select("*")
+        .eq("id", token)
+        .single();
 
-    const { data: admin, error } = await supabase
-      .from("admin_tokens")
-      .select("*")
-      .eq("id", token)
-      .single();
+      if (admin && admin.role === "admin") {
+        setUsername("Admin");
+      }
+    };
 
-    if (admin && admin.role === "admin") {
-      setUsername("Admin");
-    }
-  };
-
-  checkAdmin();
-}, []);
-
-   // @ts-ignore
+    checkAdmin();
+  }, []);
+// @ts-ignore
   useEffect(() => {
     fetchMessages();
     const channel = supabase
