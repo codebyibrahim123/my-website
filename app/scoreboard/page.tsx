@@ -117,7 +117,7 @@ export default function ScoreboardPage() {
           <Link href="/livegcpage" style={{ color: secondary, textDecoration: 'none' }}>
             💬 Live Chat
           </Link>
-        0</div>
+        </div>
         <button
           onClick={() => setDarkMode(!darkMode)}
           style={{
