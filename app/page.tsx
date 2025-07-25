@@ -14,6 +14,8 @@ const profiles = [
     name: "Amina Abid",
     image: "/Amina.jpg",
     video: "https://www.w3schools.com/html/mov_bbb.mp4",
+    extraImage: null,
+    extraVideo: null,  
     class: "11 Pink",
     age: 16,
     weight: "Unknown",
@@ -25,6 +27,8 @@ const profiles = [
     name: "Minahil Fatima",
     image: "https://randomuser.me/api/portraits/women/20.jpg",
     video: "https://www.w3schools.com/html/mov_bbb.mp4",
+    extraImage: "https://randomuser.me/api/portraits/women/20.jpg",
+    extraVideo: "https://www.w3schools.com/html/mov_bbb.mp4",
     class: "11 Pink",
     age: 16,
     weight: "Unknown",
@@ -163,7 +167,7 @@ export default function HomePage() {
   };
 
   const filteredProfiles = search.trim()
-    ? profiles.filter((profile) => profile.name.toLowerCase().includes(search.toLowerCase()))
+    ? profiles.filter((profile) => profile.name.toLowerCase().startsWith(search.toLowerCase()))
     : [];
 
   return (
@@ -176,8 +180,8 @@ export default function HomePage() {
             <Link href="/livegcpage" style={{ color: darkMode ? "#ccc" : "#333", textDecoration: "none" }}>Live Chat</Link>
             <Link href="/scoreboard" style={{ color: darkMode ? "#ccc" : "#333", textDecoration: "none" }}>Scoreboard</Link>
           </div>
-          <button onClick={() => setDarkMode(!darkMode)} style={{ background: "none", border: "1px solid #444", padding: "0.5rem 1rem", borderRadius: "8px", cursor: "pointer", color: darkMode ? "white" : "black", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            {darkMode ? <Moon /> : <Sun />} {darkMode ? "Dark Mode" : "Light Mode"}
+          <button onClick={() => setDarkMode(!darkMode)} style={{ background: "none", border: "1px solid #444", fontSize: "0.9rem", padding: "0.2rem 0.4rem", borderRadius: "6px", cursor: "pointer", color: darkMode ? "white" : "black", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            {darkMode ? <Moon size={17} /> : <Sun size={17} />} {darkMode ? "Dark Mode" : "Light Mode"}
           </button>
         </nav>
 
@@ -209,10 +213,39 @@ export default function HomePage() {
                 transition={{ duration: 0.35 }}
                 style={{ background: darkMode ? "#0c0c0c" : "#f9f9f9", borderRadius: "1.5rem", padding: "1.6rem", textAlign: "center", border: "1px solid #222", boxShadow: "0 0 12px rgba(0,0,0,0.1)" }}
               >
-                <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "1rem" }}>
-                  <img src={profile.image} alt={profile.name} style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "10px" }} />
-                  <video src={profile.video} muted autoPlay loop style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "10px" }} />
-                </div>
+                <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap" }}>
+  <img
+    src={profile.image}
+    alt={profile.name}
+    style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "10px" }}
+  />
+  <video
+    src={profile.video}
+    muted
+    autoPlay
+    loop
+    style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "10px" }}
+  />
+  
+  {profile.extraImage && (
+    <img
+      src={profile.extraImage}
+      alt={profile.name + " extra"}
+      style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "10px" }}
+    />
+  )}
+
+  {profile.extraVideo && (
+    <video
+      src={profile.extraVideo}
+      muted
+      autoPlay
+      loop
+      style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "10px" }}
+    />
+  )}
+</div>
+
                 <h3 style={{ color: darkMode ? "#eee" : "#222", marginBottom: "0.6rem" }}>{profile.name}</h3>
                 <p>🎓 Class: {profile.class}</p>
                 <p>🎂 Age: {profile.age}</p>
