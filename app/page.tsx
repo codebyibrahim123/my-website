@@ -148,6 +148,7 @@ export default function HomePage() {
   }, []);
 
   const handleRate = async (id, value) => {
+    console.log("Rating triggered", { id, value });
     if (ratings[id]) return;
 
     const { error } = await supabase.from("ratings").insert([{ profile_id: id, score: value }]);
