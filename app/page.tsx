@@ -225,7 +225,7 @@ export default function HomePage() {
                 transition={{ duration: 0.35 }}
                 style={{ background: darkMode ? "#0c0c0c" : "#f9f9f9", borderRadius: "1.5rem", padding: "1.6rem", textAlign: "center", border: "1px solid #222", boxShadow: "0 0 12px rgba(0,0,0,0.1)" }}
               >
-                <div style={{ display: "grid", justifyContent: "center", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap", gridTemplateColumns: "repeat(2, 150px)" }}>
+                <div style={{ display: "grid", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap", gridTemplateColumns: "repeat(auto-fit, minmax (300px, 1fr))", width: "100%", maxWidth: "100%", boxSizing: "border-box", padding: "0 1rem" }}>
   <img
     src={profile.image}
     alt={profile.name}
