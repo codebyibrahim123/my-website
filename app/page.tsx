@@ -7,6 +7,7 @@ import { Sun, Moon } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient("https://qvijyrpjcdvqzamtcqyo.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2aWp5cnBqY2R2cXphbXRjcXlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM0Mzg3NTQsImV4cCI6MjA2OTAxNDc1NH0.q_lMSlzli2wKSaOp9wpPv2b1nSxIspIIfU5YxyNY0vc");
+
 const profiles = [
   {
     id: 1,
@@ -170,7 +171,7 @@ export default function HomePage() {
     : [];
 
   return (
-    <div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", minHeight: "100vh", padding: "2rem", position: "relative", transition: "all 0.3s ease"}}>
+    <div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", minHeight: "100vh", padding: "2rem", position: "relative", transition: "all 0.3s ease" }}>
       <DotBackground />
       <div style={{ position: "relative", zIndex: 1 }}>
         <nav style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
@@ -202,20 +203,7 @@ export default function HomePage() {
         </div>
 
         {filteredProfiles.length > 0 && (
-          <div style={{ 
-            display: "grid", 
-            gap: "1.5rem", 
-            gridTemplateColumns:
-              filteredProfiles.length === 1
-              ? "1fr"
-              :filteredProfiles.length === 2
-              ? "repeat(2, 1fr)"
-              : "repeat (auto-fit, minmax(300px, 1fr))",
-              maxWidth: "100%",
-              overflowX: "hidden",
-              padding: "0 1rem",
-              boxSizing: "border-box",
-             }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem" }}>
             {filteredProfiles.map((profile) => (
               <motion.div
                 key={profile.id}
@@ -225,7 +213,7 @@ export default function HomePage() {
                 transition={{ duration: 0.35 }}
                 style={{ background: darkMode ? "#0c0c0c" : "#f9f9f9", borderRadius: "1.5rem", padding: "1.6rem", textAlign: "center", border: "1px solid #222", boxShadow: "0 0 12px rgba(0,0,0,0.1)" }}
               >
-                <div style={{ display: "grid", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap", gridTemplateColumns: "repeat(auto-fit, minmax (300px, 1fr))", width: "100%", maxWidth: "100%", boxSizing: "border-box"}}>
+                <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap" }}>
   <img
     src={profile.image}
     alt={profile.name}
