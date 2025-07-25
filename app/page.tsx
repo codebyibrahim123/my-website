@@ -170,7 +170,7 @@ export default function HomePage() {
     : [];
 
   return (
-    <div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", minHeight: "100vh", padding: "2rem", position: "relative", transition: "all 0.3s ease" }}>
+    <div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", minHeight: "100vh", padding: "2rem", position: "relative", transition: "all 0.3s ease", overflowX: "hidden" }}>
       <DotBackground />
       <div style={{ position: "relative", zIndex: 1 }}>
         <nav style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
@@ -207,10 +207,14 @@ export default function HomePage() {
             gap: "1.5rem", 
             gridTemplateColumns:
               filteredProfiles.length === 1
-              ? "1f"
+              ? "1fr"
               :filteredProfiles.length === 2
               ? "repeat(2, 1fr)"
               : "repeat (auto-fit, minmax(300px, 1fr))",
+              maxWidth: "100%",
+              overflowX: "hidden",
+              padding: "0 1rem",
+              boxSizing: "border-box",
              }}>
             {filteredProfiles.map((profile) => (
               <motion.div
