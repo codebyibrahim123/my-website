@@ -195,7 +195,7 @@ export default function HomePage() {
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <input
             type="text"
-            placeholder="Search anonymous profiles..."
+            placeholder="Search your girl..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             style={{ padding: "1rem", borderRadius: "10px", border: "1px solid #444", background: darkMode ? "#111" : "#eee", color: darkMode ? "white" : "black", width: "100%", maxWidth: "420px" }}
