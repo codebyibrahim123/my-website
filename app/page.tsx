@@ -170,7 +170,7 @@ export default function HomePage() {
     : [];
 
   return (
-    <div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", minHeight: "100vh", padding: "2rem", position: "relative", transition: "all 0.3s ease", overflowX: "hidden" }}>
+    <div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", minHeight: "100vh", padding: "2rem", position: "relative", transition: "all 0.3s ease"}}>
       <DotBackground />
       <div style={{ position: "relative", zIndex: 1 }}>
         <nav style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
