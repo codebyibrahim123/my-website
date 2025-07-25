@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Sun, Moon } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient("https://dggdbwpyhvoopfnocvau.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnZ2Rid3B5aHZvb3Bmbm9jdmF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExMzg0NTksImV4cCI6MjA2NjcxNDQ1OX0.ZWMK6UNvjS7SJekArWxs_BVEa_1K7Wev5vmL_mWTF5o");
+const supabase = createClient("https://qvijyrpjcdvqzamtcqyo.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2aWp5cnBqY2R2cXphbXRjcXlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM0Mzg3NTQsImV4cCI6MjA2OTAxNDc1NH0.q_lMSlzli2wKSaOp9wpPv2b1nSxIspIIfU5YxyNY0vc");
 
 const profiles = [
   {
