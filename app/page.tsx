@@ -174,16 +174,55 @@ export default function HomePage() {
     <div style={{ background: darkMode ? "black" : "white", color: darkMode ? "white" : "black", minHeight: "100vh", padding: "2rem", position: "relative", transition: "all 0.3s ease" }}>
       <DotBackground />
       <div style={{ position: "relative", zIndex: 1 }}>
-        <nav style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
-          <div></div>
-          <div style={{ display: "flex", gap: "2rem" }}>
-            <Link href="/livegcpage" style={{ color: darkMode ? "#ccc" : "#333", textDecoration: "none" }}>Live Chat</Link>
-            <Link href="/scoreboard" style={{ color: darkMode ? "#ccc" : "#333", textDecoration: "none" }}>Scoreboard</Link>
-          </div>
-          <button onClick={() => setDarkMode(!darkMode)} style={{ background: "none", border: "1px solid #444", fontSize: "0.9rem", padding: "0.2rem 0.4rem", borderRadius: "6px", cursor: "pointer", color: darkMode ? "white" : "black", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            {darkMode ? <Moon size={17} /> : <Sun size={17} />} {darkMode ? "Dark Mode" : "Light Mode"}
-          </button>
-        </nav>
+        <nav
+  className="flex flex-wrap justify-between items-center gap-4 mb-8"
+>
+  {/* Centered nav links */}
+  <div className="flex flex-wrap items-center gap-6 text-lg">
+    <Link
+      href="/livegcpage"
+      style={{
+        color: darkMode ? "#ccc" : "#333",
+        textDecoration: "none",
+      }}
+    >
+      LiveChat
+    </Link>
+    <Link
+      href="/scoreboard"
+      style={{
+        color: darkMode ? "#ccc" : "#333",
+        textDecoration: "none",
+      }}
+    >
+      Scoreboard
+    </Link>
+    <Link
+      href="/ratinggame"
+      style={{
+        color: darkMode ? "#ccc" : "#333",
+        textDecoration: "none",
+      }}
+    >
+      RatingGame
+    </Link>
+  </div>
+
+  {/* Dark mode toggle button */}
+  <button
+    onClick={() => setDarkMode(!darkMode)}
+    className="text-sm px-2 py-1 border rounded-md flex items-center gap-2"
+    style={{
+      background: "none",
+      border: "1px solid #444",
+      color: darkMode ? "white" : "black",
+    }}
+  >
+    {darkMode ? <Moon size={17} /> : <Sun size={17} />}{" "}
+    {darkMode ? "Dark Mode" : "Light Mode"}
+  </button>
+</nav>
+
 
         <h1 style={{ textAlign: "center", fontSize: "2rem", marginBottom: "1rem", fontWeight: 800 }}>
           Every BDC 11th Grade Girl<br />Is Listed Right Here — Unfiltered

@@ -100,39 +100,32 @@ export default function ScoreboardPage() {
         transition: 'all 0.3s ease',
       }}
     >
-      {/* 🔝 Navbar */}
       <nav
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '2rem',
-          fontSize: '1rem',
-        }}
-      >
-        <div style={{ display: 'flex', gap: '2rem' }}>
-          <Link href="/" style={{ color: secondary, textDecoration: 'none' }}>
-            🏠 Home
-          </Link>
-          <Link href="/livegcpage" style={{ color: secondary, textDecoration: 'none' }}>
-            💬 Live Chat
-          </Link>
-        </div>
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          style={{
-            background: 'transparent',
-            color: secondary,
-            border: `1px solid ${border}`,
-            borderRadius: '8px',
-            padding: '0.4rem 0.8rem',
-            cursor: 'pointer',
-            fontSize: '0.9rem',
-          }}
-        >
-          {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
-        </button>
-      </nav>
+  className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-6 mb-8 text-[18px]"
+>
+  <div className="flex flex-wrap items-center gap-5 sm:gap-6">
+    <Link href="/" style={{ color: secondary, textDecoration: 'none' }}>
+       Home
+    </Link>
+    <Link href="/livegcpage" style={{ color: secondary, textDecoration: 'none' }}>
+       LiveChat
+    </Link>
+    <Link href="/ratinggame" style={{ color: secondary, textDecoration: 'none' }}>
+       RatingGame
+    </Link>
+  </div>
+  <button
+    onClick={() => setDarkMode(!darkMode)}
+    className="whitespace-nowrap text-sm px-3 py-1 border rounded-md"
+    style={{
+      background: 'transparent',
+      color: secondary,
+      border: `1px solid ${border}`,
+    }}
+  >
+    {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+  </button>
+</nav>
 
       {/* 📊 Title + Info */}
       <h1
