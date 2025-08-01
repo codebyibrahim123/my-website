@@ -226,6 +226,8 @@ export default function LiveGCPage() {
             className="flex-1 px-4 py-3 rounded-full bg-zinc-900 text-white border border-zinc-700 outline-none placeholder-gray-400"
           />
           <button
+            type="button"
+            onMouseDown={(e) => e.preventDefault()}
             onClick={handleSend}
             className="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold"
           >Send</button>
