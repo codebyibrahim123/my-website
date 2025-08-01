@@ -43,6 +43,7 @@ export default function LiveGCPage() {
   const [theme, setTheme] = useState("dark");
   const containerRef = useRef<HTMLDivElement | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setUsername(getOrCreateUsername());
@@ -121,6 +122,7 @@ export default function LiveGCPage() {
     setNewMessage("");
     setMediaFile(null);
     setReplyTo(null);
+    inputRef.current.focus();
   };
 
   const formatTime = (timestamp: string) => {
@@ -215,6 +217,7 @@ export default function LiveGCPage() {
         />
         <div className="flex gap-2">
           <input
+            ref={inputRef}
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
