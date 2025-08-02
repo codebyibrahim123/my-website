@@ -12,6 +12,7 @@ type Message = {
   created_at: string;
   reply_to?: number | null;
   media_url?: string | null;
+  client_id?: string; 
 };
 
 const randomNames = ["AnonymousLion", "ShadowWolf", "GhostFalcon", "SilentTiger", "NightPanther"];
