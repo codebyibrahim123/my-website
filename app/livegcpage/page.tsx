@@ -145,7 +145,7 @@ export default function LiveGCPage() {
   if (mediaFile) {
     const { data, error } = await supabase.storage
     .from("media")
-    .upload(`${Data.now()}-${mediaFile.name}`, mediaFile);
+    .upload(`${Date.now()}-${mediaFile.name}`, mediaFile);
     if (error) {
       console.error("Error uploading media:", error);
       return;
