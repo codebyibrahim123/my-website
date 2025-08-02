@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { supabase } from "@/utils/supabaseClient";
+import { v4 as uuidv4 } from "uuid";
 
 // Type definition for messages
 type Message = {
@@ -72,22 +73,30 @@ export default function LiveGCPage() {
   useEffect(() => {
     fetchMessages();
     const channel = supabase
-      .channel("realtime chat")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "messages" },
-        (payload) => {
-          const newMsg = payload.new as Message;
-          setMessages((prev) => (prev.some((msg) => msg.id === newMsg.id) ? prev : [...prev, newMsg]));
-        }
-      )
-      .subscribe();
+  .channel("realtime chat")
+  .on(
+    "postgres_changes",
+    { event: "INSERT", schema: "public", table: "messages" },
+    (payload) => {
+      const newMsg = payload.new as Message;
+      setMessages((prev) => {
+        const isDuplicate = prev.some(
+          (msg) => 
+          (msg.client_id && newMsg.client_id && msg.client_id === newMsg.client_id) ||
+          msg.id === newMsg.id
+        );
+        return isDuplicate ? prev : [...prev, newMsg];
+      });
+    }
+  )
+  .subscribe();
+
 
     return () => supabase.removeChannel(channel);
   }, []);
 
   useEffect(() => {
-    if (!showScrollButton) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (!showScrollButton) bottomRef.current?.scrollIntoView({ behavior: "auto" });
   }, [messages]);
 
   useEffect(() => {
@@ -108,22 +117,80 @@ export default function LiveGCPage() {
   };
 
   const handleSend = async () => {
-    if (!newMessage.trim() && !mediaFile) return;
-    let mediaUrl = null;
-    if (mediaFile) {
-      const fileName = `${Date.now()}-${mediaFile.name}`;
-      const { data, error } = await supabase.storage.from("media").upload(fileName, mediaFile);
-      if (!error && data) {
-        const { data: publicUrl } = supabase.storage.from("media").getPublicUrl(fileName);
-        mediaUrl = publicUrl.publicUrl;
-      }
-    }
-    await supabase.from("messages").insert([{ username, content: newMessage, reply_to: replyTo, media_url: mediaUrl }]);
-    setNewMessage("");
-    setMediaFile(null);
-    setReplyTo(null);
-    inputRef.current.focus();
+  if (!newMessage.trim() && !mediaFile) return;
+
+  setNewMessage("");
+  setMediaFile(null);
+  setReplyTo(null);
+
+  // ✅ ADD THIS — create a unique client-side ID for optimistic message tracking
+  const clientId = Date.now().toString();
+
+  // ✅ ADD THIS — initialize mediaUrl for use later
+  let mediaUrl = null;
+  const optimisticMsg: Message = {
+    id: Date.now(),
+    username,
+    content: newMessage,
+    created_at: new Date().toISOString(),
+    reply_to: replyTo,
+    media_url: null, 
+    // @ts-ignore
+    client_id: clientId,
   };
+
+  setMessages((prev) => [...prev, optimisticMsg]);
+
+  if (mediaFile) {
+    const { data, error } = await supabase.storage
+    .from("media")
+    .upload(`${Data.now()}-${mediaFile.name}`, mediaFile);
+    if (error) {
+      console.error("Error uploading media:", error);
+      return;
+    }
+
+    mediaUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/media/${data.path}`; 
+    // ✅ ADD THIS — create a unique filename for storage
+    const fileName = `${Date.now()}-${mediaFile.name}`;
+
+    // ✅ ADD THIS — get the public URL of the uploaded file
+    if (!error && data) {
+      const { data: publicUrl } = supabase.storage
+        .from("media")
+        .getPublicUrl(fileName);
+      mediaUrl = publicUrl.publicUrl;
+    }
+  }
+
+  // ✅ ADD THIS — debug log before inserting into Supabase
+  console.log("Sending to Supabase with content:", {
+    username,
+    content: newMessage,
+    reply_to: replyTo,
+    media_url: mediaUrl,
+    client_id: clientId,
+  });
+
+  // ✅ ADD THIS — insert message into Supabase
+  const { error, data, status, statusText } = await supabase.from("messages").insert([
+    {
+      username, 
+      content: newMessage,
+      reply_to: replyTo,
+      media_url: mediaUrl,
+      client_id: clientId,
+    },
+  ]);
+
+  // ✅ ADD THIS — log error if insert fails
+  if (error) {
+    console.error("Supabase insert error:", error);
+  }
+
+  // ✅ ADD THIS — reset input after sending
+};
+
 
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
