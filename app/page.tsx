@@ -346,7 +346,7 @@ const handleRate = async (id, value) => {
       {/* PROFILE MODAL — improved, intuitive layout */}
       <AnimatePresence>
         {selectedProfile && !galleryOpen && (
-          <motion.div className="fixed inset-0 z-50 flex items-center justify-center p-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProfile(null)} style={{ backdropFilter: "blur(6px)" }}>
+          <motion.div className="fixed inset-0 z-50 flex items-center justify-center p-6 overflow-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProfile(null)} style={{ backdropFilter: "blur(6px)", WebkitOverflowScrolling: "touch" }}>
             <motion.div
               className="w-full max-w-3xl rounded-2xl p-6 relative"
               onClick={(e) => e.stopPropagation()}
