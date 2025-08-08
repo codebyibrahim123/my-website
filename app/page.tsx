@@ -346,7 +346,7 @@ const handleRate = async (id, value) => {
       {/* PROFILE MODAL — improved, intuitive layout */}
       <AnimatePresence>
         {selectedProfile && !galleryOpen && (
-          <motion.div className="fixed inset-0 z-50 flex items-center justify-center p-6 overflow-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProfile(null)} style={{ backdropFilter: "blur(6px)", WebkitOverflowScrolling: "touch" }}>
+          <motion.div className="fixed inset-0 z-50 flex items-start justify-center p-6 overflow-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProfile(null)} style={{ backdropFilter: "blur(6px)", WebkitOverflowScrolling: "touch" }}>
             <motion.div
               className="w-full max-w-3xl rounded-2xl p-6 relative"
               onClick={(e) => e.stopPropagation()}
@@ -374,7 +374,7 @@ const handleRate = async (id, value) => {
 
                   <div className="w-full flex gap-2">
                     <button onClick={() => openGallery(selectedProfile, 0)} className="flex-1 px-3 py-2 rounded-md text-sm" style={{ background: isLightMode ? "#f3f4f6" : "rgba(255,255,255,0.02)", border: `1px solid ${isLightMode ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.03)"}` }}>
-                      Open gallery
+                      Click for Full Experience😉
                     </button>
                     <button onClick={() => setSelectedProfile(null)} className="px-3 py-2 rounded-md text-sm" style={{ background: "transparent", border: `1px solid ${isLightMode ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.04)"}` }}>
                       Close
