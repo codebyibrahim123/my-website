@@ -16,6 +16,8 @@ const profiles = [
   { id: 3, name: 'Jweriyah Faizi' },
   { id: 4, name: 'Test Profile 4' },
   { id: 5, name: 'Test Profile 5' },
+  { id: 6, name: 'Test Profile 6' },
+  { id: 7, name: 'Test Profile 7' },
 ];
 
 export default function ScoreboardPage() {
