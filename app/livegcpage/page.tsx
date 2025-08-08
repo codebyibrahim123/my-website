@@ -302,7 +302,6 @@ export default function LiveGCPage() {
     };
     flushSync(() => {
       setMessages(prev => [...prev, optimistic]);
-      setText("");
       setReplyTo(null);
     });
     
@@ -625,11 +624,11 @@ export default function LiveGCPage() {
               </svg>
             </label>
 
-            <form onSubmit={e => { e.preventDefault(); const val = inputRef.current?.value ?? ""; const trimmed = val.trim(); if (!trimmed && !mediaFile) return; flushSync(() => setText("")); if (inputRef.current) { inputRef.current.value = ""; inputRef.current.style.height = "0px";} handleSend(trimmed); }} className="flex-1 flex items-end gap-2">
+            <form onSubmit={e => { e.preventDefault(); const val = inputRef.current?.value ?? ""; const trimmed = val.trim(); if (!trimmed && !mediaFile) return; flushSync(() => setText("")); if (inputRef.current) { inputRef.current.value = ""; inputRef.current.style.height = "0px";} setText(""); handleSend(trimmed); }} className="flex-1 flex items-end gap-2">
               <div className={`flex-1 flex items-end rounded-2xl border px-3 py-2 ${isDark ? "bg-neutral-900 border-neutral-800" : "bg-neutral-100 border-neutral-200"}`}>
                 <textarea
   ref={inputRef}
-  value={text}
+  defaultValue=""
   onFocus={onInputFocus}
   onBlur={onInputBlur}
   onChange={e => { setText(e.target.value); autoSize(); }}
@@ -656,6 +655,8 @@ export default function LiveGCPage() {
     }
 
     // 3) send
+    setText("");
+
     handleSend(trimmed);
   }
 }}
