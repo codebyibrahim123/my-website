@@ -21,7 +21,7 @@ const profiles = [
     image: "/profile 1.png",
     age: 16,
     dob: "2009-1-1",
-    location: "BDC",
+    location: "Scroll down to vote",
     class: "11 Pink",
     rls: "Single",
     media: [
@@ -35,7 +35,7 @@ const profiles = [
     image: "/profile 2.png",
     age: 16,
     dob: "------",
-    location: "BDC",
+    location: "Scroll down to vote",
     class: "11 Pink",
     rls: "In a relationship with ---",
     media: [
@@ -51,7 +51,7 @@ const profiles = [
     image: "/profile 3.png",
     age: 16,
     dob: "---",
-    location: "Lahore",
+    location: "Scroll down to vote",
     class: "11 Pink",
     rls: "Single",
     media: [
@@ -69,7 +69,7 @@ const profiles = [
     image: "/profile 4.png",
     age: 16,
     dob: "------",
-    location: "BDC",
+    location: "Scroll down to vote",
     class: "11 Pink",
     rls: "In a relationship with ---",
     media: [
@@ -85,7 +85,7 @@ const profiles = [
     image: "/profile 5.png",
     age: 16,
     dob: "------",
-    location: "BDC",
+    location: "Scroll down to vote",
     class: "11 Pink",
     rls: "In a relationship with ---",
     media: [
@@ -101,7 +101,7 @@ const profiles = [
     image: "/profile 1.png",
     age: 16,
     dob: "------",
-    location: "BDC",
+    location: "Scroll down to vote",
     class: "11 Pink",
     rls: "In a relationship with ---",
     media: [
@@ -117,7 +117,7 @@ const profiles = [
     image: "/profile 1.png",
     age: 16,
     dob: "------",
-    location: "BDC",
+    location: "Scroll down to vote",
     class: "11 Pink",
     rls: "In a relationship with ---",
     media: [
@@ -329,7 +329,7 @@ const handleRate = async (id, value) => {
 
                         <div>
                           <div className="text-sm font-medium" style={{ color: isLightMode ? "#111" : "#fff" }}>{p.name}</div>
-                          <div className="text-xs" style={{ color: isLightMode ? "#6b7280" : "#9ca3af" }}>{p.location} • {p.class}</div>
+                          <div className="text-xs" style={{ color: isLightMode ? "#6b7280" : "#9ca3af" }}>• {p.class}</div>
                         </div>
 
                         <div className="ml-auto text-xs" style={{ color: isLightMode ? "#6b7280" : "#9ca3af" }}>open →</div>
@@ -376,8 +376,8 @@ const handleRate = async (id, value) => {
                     <button onClick={() => openGallery(selectedProfile, 0)} className="flex-1 px-3 py-2 rounded-md text-sm" style={{ background: isLightMode ? "#f3f4f6" : "rgba(255,255,255,0.02)", border: `1px solid ${isLightMode ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.03)"}` }}>
                       Click for Full Experience😉
                     </button>
-                    <button onClick={() => setSelectedProfile(null)} className="px-3 py-2 rounded-md text-sm" style={{ background: "transparent", border: `1px solid ${isLightMode ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.04)"}` }}>
-                      Close
+                    <button onClick={() => setSelectedProfile(null)} className="px-3 py-2 rounded-md text-sm" style={{ backgroundColor: "#FF2400", border: `1px solid ${isLightMode ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.04)"}` }}>
+                      Close Profile
                     </button>
                   </div>
                 </div>
@@ -471,7 +471,7 @@ const handleRate = async (id, value) => {
               <div className="flex items-center justify-between mt-3 text-sm" style={{ color: isLightMode ? "#374151" : "#d1d5db" }}>
                 <div>{selectedProfile.name} — {galleryIndex + 1}/{selectedProfile.media.length}</div>
                 <div className="flex gap-2">
-                  <button onClick={() => setGalleryOpen(false)} className="px-3 py-1 rounded-md" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.03)" }}>Close</button>
+                  <button onClick={() => setGalleryOpen(false)} className="px-3 py-1 rounded-md" style={{ backgroundColor: "#FF2400", border: "1px solid rgba(255,255,255,0.03)" }}>Close Preview</button>
                 </div>
               </div>
             </div>
