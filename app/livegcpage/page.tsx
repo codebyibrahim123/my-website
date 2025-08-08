@@ -625,7 +625,7 @@ export default function LiveGCPage() {
               </svg>
             </label>
 
-            <form onSubmit={e => { e.preventDefault(); const val = inputRef.current?.value ?? ""; const trimmed = val.trim(); if (!trimmed && !mediaFile) return; if (inputRef.current) { inputRef.current.value = ""; inputRef.current.style.height = "0px";} handleSend(trimmed); }} className="flex-1 flex items-end gap-2">
+            <form onSubmit={e => { e.preventDefault(); const val = inputRef.current?.value ?? ""; const trimmed = val.trim(); if (!trimmed && !mediaFile) return; flushSync(() => setText("")); if (inputRef.current) { inputRef.current.value = ""; inputRef.current.style.height = "0px";} handleSend(trimmed); }} className="flex-1 flex items-end gap-2">
               <div className={`flex-1 flex items-end rounded-2xl border px-3 py-2 ${isDark ? "bg-neutral-900 border-neutral-800" : "bg-neutral-100 border-neutral-200"}`}>
                 <textarea
   ref={inputRef}
@@ -634,27 +634,32 @@ export default function LiveGCPage() {
   onBlur={onInputBlur}
   onChange={e => { setText(e.target.value); autoSize(); }}
   onKeyDown={e => {
-    const composing =
-      (e as any).isComposing ||
-      (e.nativeEvent as any).isComposing ||
-      (e as any).keyCode === 229;
+  const composing =
+    (e as any).isComposing ||
+    (e.nativeEvent as any).isComposing ||
+    (e as any).keyCode === 229;
 
-    if (e.key === "Enter" && !e.shiftKey && !composing) {
-      e.preventDefault();
+  if (e.key === "Enter" && !e.shiftKey && !composing) {
+    e.preventDefault();
 
-      const val = inputRef.current?.value ?? "";
-      const trimmed = val.trim();
-      if (!trimmed && !mediaFile) return;
+    const val = inputRef.current?.value ?? "";
+    const trimmed = val.trim();
+    if (!trimmed && !mediaFile) return;
 
-      // hard clear immediately
-      if (inputRef.current) {
-        inputRef.current.value = "";
-        inputRef.current.style.height = "0px";
-      }
+    // 1) clear React state immediately
+    flushSync(() => setText(""));
 
-      handleSend(trimmed);
+    // 2) clear DOM immediately
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      inputRef.current.style.height = "0px";
     }
-  }}
+
+    // 3) send
+    handleSend(trimmed);
+  }
+}}
+
   rows={1}
   placeholder="Message…"
   className="flex-1 resize-none bg-transparent outline-none text-[15px] max-h-40"
